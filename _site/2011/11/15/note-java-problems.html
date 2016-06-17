@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>记录碰到的一些 Java 问题(更新2014-02-26)</title>
+   <meta name="author" content="Tom Preston-Werner" />
+   <link href="http://feeds.feedburner.com/tom-preston-werner" rel="alternate" title="Tom Preston-Werner" type="application/atom+xml" />
+   <meta name="readability-verification" content="QCzSs992GxmRYRKVpPeZ6LE2tS8aYKxsSSQKV8YM"/>
+
+   <!-- syntax highlighting CSS -->
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+
+   <!-- Typekit -->
+   <script type="text/javascript" src="http://use.typekit.com/jpd0pfm.js"></script>
+   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body>
+
+<!-- ClickTale Top part -->
+<script type="text/javascript">
+var WRInitTime=(new Date()).getTime();
+</script>
+<!-- ClickTale end of Top part -->
+
+<div class="site">
+  <div class="title">
+    <a href="/">Tom Preston-Werner</a>
+    <a class="extra" href="/">home</a>
+  </div>
+
+  <div id="post">
+<p>这篇文章用于记录自己碰到过的一些 Java 问题，会根据经验不断增加，以便总结。:-)</p>
+
+<h4 id="case">CASE</h4>
+
+<p>线上 Tomcat 经常无故自动 Shutdown，并且非 JVM Crash 导致，因为从 Tomcat 日志中发现它 pause 到 destory 的过程，如下日志所示：</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">catalina</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">StandardServer</span> <span class="n">await</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mi">22</span> <span class="mi">21</span><span class="o">:</span><span class="mi">38</span><span class="o">:</span><span class="mi">57</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">coyote</span><span class="o">.</span><span class="na">AbstractProtocol</span> <span class="n">pause</span>
+<span class="err">信息</span><span class="o">:</span> <span class="n">Pausing</span> <span class="n">ProtocolHandler</span> <span class="o">[</span><span class="s">"http-bio-8110"</span><span class="o">]</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mi">22</span> <span class="mi">21</span><span class="o">:</span><span class="mi">38</span><span class="o">:</span><span class="mi">57</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">coyote</span><span class="o">.</span><span class="na">AbstractProtocol</span> <span class="n">pause</span>
+<span class="err">信息</span><span class="o">:</span> <span class="n">Pausing</span> <span class="n">ProtocolHandler</span> <span class="o">[</span><span class="s">"ajp-bio-8029"</span><span class="o">]</span>
+<span class="mi">2014</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mi">22</span> <span class="mi">21</span><span class="o">:</span><span class="mi">38</span><span class="o">:</span><span class="mi">58</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">catalina</span><span class="o">.</span><span class="na">core</span><span class="o">.</span><span class="na">StandardService</span> <span class="n">stopInternal</span>
+<span class="err">信息</span><span class="o">:</span> <span class="n">Stopping</span> <span class="n">service</span> <span class="n">Catalina</span> </code></pre></figure>
+
+<h4 id="solved">Solved</h4>
+
+<p>从日志上来看是 Tomcat 的 hutdownhook 被被执行。后来看 Linux ssh 的退出的日志正好与 Tomcat 关闭时间存在一定的规律。也就是说 ssh 登录然后启动tomcat，再退出 ssh后， tomcat 就会自动停掉。线上服务器都是通过 tomcat-hepler.sh 脚本来启动/停止 Tomcat 实例，以下是 tomcat-helper.sh 的代码简化版本：</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+/export/tomcatApp/xxx/bin/startup.sh
+tail -f /export/logs/xxx/catalina.out </code></pre></figure>
+
+<p>经过分析，tomcat 启动后，当前shell进程并没有退出，而是挂住在 tail 进程，往终端输出日志内容。这种情况下，如果你直接关闭ssh终端的窗口(用鼠标或快捷键强制关闭)，则 Tomcat 进程也会退出。而如果先 ctrl-c 终止 tomcat-helper.sh 进程，然后再关闭 ssh 终端的话，则 Tomcat 进程不会退出。</p>
+
+<p>解决此办法，就是在启动 Tomcat 的时候增加 nohup 的支持：</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">nohup <span class="nv">$Base</span>/<span class="nv">$NAME</span>/bin/startup.sh &gt;/dev/null 2&gt;&amp;1</code></pre></figure>
+
+<p>关于该问题的具体原因更深入的分析可参考下面的链接：</p>
+
+<h4 id="references">References</h4>
+<ul>
+  <li><a href="http://hongjiang.info/why-kill-2-cannot-stop-tomcat/">tomcat进程意外退出的问题分析</a></li>
+</ul>
+
+<hr />
+
+<h4 id="case-1">CASE</h4>
+
+<p>某 Java Web API 程序，在进行 LoadRunner 压力测试时 200/user 发现8个 CPU(4个双核) used 基本上都在 90%~100% 之间了，HTTP 平均响应时间 2/s 左右，TPS 极其低。</p>
+
+<h4 id="solved-1">Solved</h4>
+
+<p>既然 CPU 负载这么高，响应时间低，那么可以推测及有可能与 Java 线程有关系，于是通过 <code class="highlighter-rouge">jstack -l [java pid]</code>，发现有将近百多的 HTTP 线程其 State 都处于 RUNNABLE，这不是问题，问题在于基本上所有的线程都在执行同一方法及同一代码行：</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="s">"http-8068-52"</span> <span class="n">daemon</span> <span class="n">prio</span><span class="o">=</span><span class="mi">10</span> <span class="n">tid</span><span class="o">=</span><span class="mh">0x000000005cac5800</span> <span class="n">nid</span><span class="o">=</span><span class="mh">0x280d</span> <span class="n">runnable</span> <span class="o">[</span><span class="mh">0x0000000046060000</span><span class="o">]</span> 
+   <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Thread</span><span class="o">.</span><span class="na">State</span><span class="o">:</span> <span class="n">RUNNABLE</span> 
+        <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">net</span><span class="o">.</span><span class="na">SocketInputStream</span><span class="o">.</span><span class="na">socketRead0</span><span class="o">(</span><span class="n">Native</span> <span class="n">Method</span><span class="o">)</span> 
+        <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">net</span><span class="o">.</span><span class="na">SocketInputStream</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">SocketInputStream</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">129</span><span class="o">)</span> 
+        <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">mapbar</span><span class="o">.</span><span class="na">logic</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">SocketUtil</span><span class="o">.</span><span class="na">getResponse</span><span class="o">(</span><span class="n">SocketUtil</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">63</span><span class="o">)</span> 
+        <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">mapbar</span><span class="o">.</span><span class="na">logic</span><span class="o">.</span><span class="na">geocoding</span><span class="o">.</span><span class="na">GeoCoding</span><span class="o">.</span><span class="na">getLonLat</span><span class="o">(</span><span class="n">GeoCoding</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">73</span><span class="o">)</span> 
+  <span class="s">"http-8068-51"</span> <span class="n">daemon</span> <span class="n">prio</span><span class="o">=</span><span class="mi">10</span> <span class="n">tid</span><span class="o">=</span><span class="mh">0x000000005ccbe000</span> <span class="n">nid</span><span class="o">=</span><span class="mh">0x280c</span> <span class="n">runnable</span> <span class="o">[</span><span class="mh">0x0000000045f5f000</span><span class="o">]</span> 
+   <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Thread</span><span class="o">.</span><span class="na">State</span><span class="o">:</span> <span class="n">RUNNABLE</span> 
+        <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">net</span><span class="o">.</span><span class="na">SocketInputStream</span><span class="o">.</span><span class="na">socketRead0</span><span class="o">(</span><span class="n">Native</span> <span class="n">Method</span><span class="o">)</span> 
+        <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">net</span><span class="o">.</span><span class="na">SocketInputStream</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">SocketInputStream</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">129</span><span class="o">)</span> 
+        <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">mapbar</span><span class="o">.</span><span class="na">logic</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">SocketUtil</span><span class="o">.</span><span class="na">getResponse</span><span class="o">(</span><span class="n">SocketUtil</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">63</span><span class="o">)</span> 
+        <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">mapbar</span><span class="o">.</span><span class="na">logic</span><span class="o">.</span><span class="na">geocoding</span><span class="o">.</span><span class="na">GeoCoding</span><span class="o">.</span><span class="na">getLonLat</span><span class="o">(</span><span class="n">GeoCoding</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">73</span><span class="o">)</span> </code></pre></figure>
+
+<p>于是可以断定代码 SocketUtil.getResponse 中的 Socket 调用几乎是肯定的罪魁祸首。</p>
+
+<h4 id="references-1">References</h4>
+<ul>
+  <li><a href="http://java.sys-con.com/node/1611555">Java Thread Dumps </a></li>
+  <li><a href="http://java.sun.com/developer/technicalArticles/Programming/Stacktrace/">An Introduction to Java Stack Traces</a></li>
+  <li><a href="http://javaeesupportpatterns.blogspot.com/2011/04/javanetsocketinputstreamsocketread0.html">java.net.socketinputstream.socketread0 hangs thread </a></li>
+</ul>
+
+<hr />
+
+<p>####CASE</p>
+
+<p>因最近在使用 HBase，但是 HBase 与 Hadoop 集成一直存在问题，主要原因是 Hadoop 0.20.x 版本本身不支持 append 操作，以至于 HBase 中包括了 hadoop-core-0.20-append-r1056497.jar 的支持 append 操作的 Hadoop 版本。不过后来 Hadoop 发出了hadoop-0.20.205.0版本，而且已经拥有了 append 的支持。于是我便将该版本的 Hadoop 与 hbase-0.90.5 进行整合，启动时一直提示：
+&gt;Caused by: java.lang.ClassNotFoundException: org.apache.commons.configuration.Configuration</p>
+
+<p>出现以上异常，导致 HMaster 无法正常启动。</p>
+
+<h4 id="solved-2">Solved</h4>
+
+<ol>
+  <li>刪除 {hbase_home}/lib/hadoop-core-0.20-append-r1056497.jar</li>
+  <li>將 {hadoop_home}/hadoop-core-0.20.205.0.jar复制到 {hbase_home}/lib/</li>
+  <li>將 {hadoop_home}/commons-configuration-1.6.jar复制到 {hbase_home}/lib/</li>
+</ol>
+
+<p>如果你的 hadoop_home 没有 commons-configuration-1.6.jar的话可以点<a href="http://repo1.maven.org/maven2/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar">这里</a>下载。 
+重新启动 HBase 即可解决以上异常。</p>
+
+</div>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span>08 Aug 2013</span> &raquo; <a href="/2013/08/08/when-to-use-countdownlatch-java-concurrency-example-tutorial.html">何时使用 CountDownLatch：Java 并发编程实例</a></li>
+    
+      <li><span>25 Jul 2013</span> &raquo; <a href="/2013/07/25/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples.html">如何生成安全的密码 Hash：MD5, SHA, PBKDF2, BCrypt 示例</a></li>
+    
+      <li><span>25 Mar 2013</span> &raquo; <a href="/2013/03/25/hack-sina-weibo-verify-code.html">新浪 Weibo 手机WAP注册验证码破解</a></li>
+    
+  </ul>
+</div>
+
+  <div class="footer">
+    <div class="contact">
+      <p>
+        Tom Preston-Werner
+        <br />
+        Cofounder of
+          <a href="https://codestarter.org/">Codestarter</a>,
+          <a href="https://github.com/">GitHub</a>
+        <br />
+        tom@mojombo.com
+      </p>
+    </div>
+    <div class="contact">
+      <p>
+        <a href="http://github.com/mojombo/">github.com/mojombo</a><br />
+        <a href="http://twitter.com/mojombo/">twitter.com/mojombo</a><br />
+      </p>
+    </div>
+    <div class="rss">
+      <a href="http://feeds.feedburner.com/tom-preston-werner">
+        <img src="/images/rss.png" alt="Subscribe to RSS Feed" />
+      </a>
+    </div>
+  </div>
+</div>
+
+<a href="http://github.com/mojombo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+
+<!-- ClickTale Bottom part -->
+<div id="ClickTaleDiv" style="display: none;"></div>
+<script type="text/javascript">
+if(document.location.protocol!='https:')
+  document.write(unescape("%3Cscript%20src='http://s.clicktale.net/WRb.js'%20type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+if(typeof ClickTale=='function') ClickTale(206,0.3,"www03");
+</script>
+<!-- ClickTale end of Bottom part -->
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-6016902-1");
+pageTracker._trackPageview();
+</script>
+<!-- Google Analytics end -->
+
+</body>
+</html>

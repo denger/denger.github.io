@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Mac OSX 10.8.1 安装 Python2.7(Django)</title>
+   <meta name="author" content="Tom Preston-Werner" />
+   <link href="http://feeds.feedburner.com/tom-preston-werner" rel="alternate" title="Tom Preston-Werner" type="application/atom+xml" />
+   <meta name="readability-verification" content="QCzSs992GxmRYRKVpPeZ6LE2tS8aYKxsSSQKV8YM"/>
+
+   <!-- syntax highlighting CSS -->
+   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+
+   <!-- Typekit -->
+   <script type="text/javascript" src="http://use.typekit.com/jpd0pfm.js"></script>
+   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body>
+
+<!-- ClickTale Top part -->
+<script type="text/javascript">
+var WRInitTime=(new Date()).getTime();
+</script>
+<!-- ClickTale end of Top part -->
+
+<div class="site">
+  <div class="title">
+    <a href="/">Tom Preston-Werner</a>
+    <a class="extra" href="/">home</a>
+  </div>
+
+  <div id="post">
+<p>Mac OSX 10.8.1 默认的 Python 版本是 2.6.8，虽然 3.2 出来已经有较长时间了，但现主流的版本仍然是 2.X 系例版本，我这里升级为 2.7.3 版本，其对应的 Django 版本为 1.4.1。</p>
+
+<h5 id="section">环境准备</h5>
+
+<ul>
+  <li>安装 Xcode 最新版本(4.4)</li>
+  <li>安装命令行工具: <a href="http://cxwangyi.wordpress.com/2012/03/26/xcode-4-3-command-line-tools/">Command Line Tools</a></li>
+  <li>安装 <a href="http://mxcl.github.com/homebrew/">Homebrew</a></li>
+</ul>
+
+<h5 id="python">Python安装</h5>
+
+<p>以上环境安装好之后，即可通过 brew 安装 pyhton：</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>brew install readline sqlite gdbm
+<span class="gp">$ </span>brew install python --universal --framework</code></pre></figure>
+
+<p>安装完成后，需要设置链接(Symlinks)：</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>mkdir ~/Frameworks
+<span class="gp">$ </span>ln -s <span class="s2">"/usr/local/Cellar/python/2.7.3/Frameworks/Python.framework"</span> ~/Frameworks
+<span class="gp">$ </span>ln -s /usr/local/Cellar/python/2.7.3/bin/python2.7 /usr/local/bin/python2.7</code></pre></figure>
+
+<p>安装 <a href="http://pypi.python.org/pypi/pip/">pip</a> 和 <a href="http://www.openfoundry.org/tw/tech-column/8516-pythons-virtual-environment-and-multi-version-programming-tools-virtualenv-and-pythonbrew">Virtualenv</a>  &amp; Django：</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>/usr/local/share/python/easy_install pip
+<span class="gp">$ </span>/usr/local/share/python/pip install --upgrade distribute
+<span class="gp">$ </span>/usr/local/share/python/pip install virtualenv
+<span class="gp">$ </span>/usr/local/share/python/pip install virtualenvwrapper
+<span class="gp">$ </span>/usr/local/share/python/pip install django</code></pre></figure>
+
+<p>配置环境，编辑 ~/.bashrc，添加如下内容后执行 <code class="highlighter-rouge">source ~/.bashrc</code>：</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">alias </span><span class="nv">python</span><span class="o">=</span><span class="s2">"python2.7"</span>
+
+<span class="c"># Before other PATHs...</span>
+<span class="nv">PATH</span><span class="o">=</span><span class="k">${</span><span class="nv">PATH</span><span class="k">}</span>:/usr/local/share/python
+
+<span class="c"># Python</span>
+<span class="nb">export </span><span class="nv">WORKON_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/.virtualenvs
+<span class="nb">export </span><span class="nv">VIRTUALENVWRAPPER_PYTHON</span><span class="o">=</span>/usr/local/bin/python2.7
+<span class="nb">export </span><span class="nv">VIRTUALENVWRAPPER_VIRTUALENV_ARGS</span><span class="o">=</span><span class="s1">'--no-site-packages'</span>
+<span class="nb">export </span><span class="nv">PIP_VIRTUALENV_BASE</span><span class="o">=</span><span class="nv">$WORKON_HOME</span>
+<span class="nb">export </span><span class="nv">PIP_RESPECT_VIRTUALENV</span><span class="o">=</span><span class="nb">true
+</span><span class="k">if</span> <span class="o">[[</span> -r /usr/local/share/python/virtualenvwrapper.sh <span class="o">]]</span>; <span class="k">then
+    </span><span class="nb">source</span> /usr/local/share/python/virtualenvwrapper.sh
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"WARNING: Can't find virtualenvwrapper.sh"</span>
+<span class="k">fi</span></code></pre></figure>
+
+<p>由于 Terminal 在启动时加载的用户配置并非 .bashrc，而是 ~/.bash_profile，所在还需要在 ~/.bash_profile 加入 <code class="highlighter-rouge">[ -r ~/.bashrc ] &amp;&amp; source ~/.bashrc</code> 语句。</p>
+
+<p>接着运行 <code class="highlighter-rouge">python --version</code> 查看当前版本，如果一切正常则会显示 2.7 的版本号。可安装 <code class="highlighter-rouge">ipyhton</code> 来验证 django 是否安装正确：</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;</span> <span class="kn">import</span> <span class="nn">django</span>
+<span class="o">&gt;</span> <span class="k">print</span> <span class="n">django</span><span class="o">.</span><span class="n">get_version</span><span class="p">()</span>
+<span class="mf">1.4</span><span class="o">.</span><span class="mi">1</span></code></pre></figure>
+
+<p>环境配置好后，如果直接启动 Django 项目，会提示如下错误：</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">denger@Macbook apiworks<span class="nv">$ </span>python manage.py runserver
+Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  File <span class="s2">"manage.py"</span>, line 8, <span class="k">in</span> &lt;module&gt;
+    from django.core.management import execute_from_command_line
+ImportError: No module named django.core.management</code></pre></figure>
+
+<p>原因是 manage.py 的第一行代码中, <code class="highlighter-rouge"><span class="c">#!/usr/bin/env python</span></code> 使用的是默认的环境，而默认的环境下的 python 并非 2.7, 其环境下也没有 django 模块，所以提示如上错误。</p>
+
+<p>解决以上问题有很多方法，最好的方法是通过 virtualenv 虚拟一个开发环境，即在任意目录下执行以下命令：</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>virtualenv dev-env <span class="c"># 可产生一个干净的 python 环境</span>
+<span class="gp">$ </span><span class="nb">cd </span>dev-env 
+<span class="gp">$ </span><span class="nb">source </span>bin/activate <span class="c"># 激活环境</span>
+<span class="gp">(dev-env)$ </span>pip install django <span class="c"># 重新在该环境下安装 django</span></code></pre></figure>
+
+<p>在虚拟环境下安装 django 之后，进入 project 目录下便可正常启动 django 服务 <code class="highlighter-rouge">python manage.py runserver</code>。当然，如果想回到系统默认环境的话只需要运行 <code class="highlighter-rouge">deactivate</code> 即可。</p>
+
+</div>
+
+<div id="related">
+  <h2>Related Posts</h2>
+  <ul class="posts">
+    
+      <li><span>08 Aug 2013</span> &raquo; <a href="/2013/08/08/when-to-use-countdownlatch-java-concurrency-example-tutorial.html">何时使用 CountDownLatch：Java 并发编程实例</a></li>
+    
+      <li><span>25 Jul 2013</span> &raquo; <a href="/2013/07/25/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples.html">如何生成安全的密码 Hash：MD5, SHA, PBKDF2, BCrypt 示例</a></li>
+    
+      <li><span>25 Mar 2013</span> &raquo; <a href="/2013/03/25/hack-sina-weibo-verify-code.html">新浪 Weibo 手机WAP注册验证码破解</a></li>
+    
+  </ul>
+</div>
+
+  <div class="footer">
+    <div class="contact">
+      <p>
+        Tom Preston-Werner
+        <br />
+        Cofounder of
+          <a href="https://codestarter.org/">Codestarter</a>,
+          <a href="https://github.com/">GitHub</a>
+        <br />
+        tom@mojombo.com
+      </p>
+    </div>
+    <div class="contact">
+      <p>
+        <a href="http://github.com/mojombo/">github.com/mojombo</a><br />
+        <a href="http://twitter.com/mojombo/">twitter.com/mojombo</a><br />
+      </p>
+    </div>
+    <div class="rss">
+      <a href="http://feeds.feedburner.com/tom-preston-werner">
+        <img src="/images/rss.png" alt="Subscribe to RSS Feed" />
+      </a>
+    </div>
+  </div>
+</div>
+
+<a href="http://github.com/mojombo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+
+<!-- ClickTale Bottom part -->
+<div id="ClickTaleDiv" style="display: none;"></div>
+<script type="text/javascript">
+if(document.location.protocol!='https:')
+  document.write(unescape("%3Cscript%20src='http://s.clicktale.net/WRb.js'%20type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+if(typeof ClickTale=='function') ClickTale(206,0.3,"www03");
+</script>
+<!-- ClickTale end of Bottom part -->
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-6016902-1");
+pageTracker._trackPageview();
+</script>
+<!-- Google Analytics end -->
+
+</body>
+</html>
