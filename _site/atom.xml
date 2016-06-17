@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-
- <title>Tom Preston-Werner</title>
- <link href="http://tom.preston-werner.com/atom.xml" rel="self"/>
- <link href="http://tom.preston-werner.com/"/>
- <updated>2016-06-18T01:32:45+08:00</updated>
- <id>http://tom.preston-werner.com/</id>
+ 
+ <title>Denger's BLOG</title>
+ <link href="http://denger.me/atom.xml" rel="self"/>
+ <link href="http://denger.me/"/>
+ <updated>2016-06-18T02:26:03+08:00</updated>
+ <id>http://denger.me</id>
  <author>
-   <name>Tom Preston-Werner</name>
-   <email>tom@mojombo.com</email>
+   <name>Denger Tung</name>
  </author>
-
+ 
  
  <entry>
    <title>何时使用 CountDownLatch：Java 并发编程实例</title>
-   <link href="http://tom.preston-werner.com/2013/08/08/when-to-use-countdownlatch-java-concurrency-example-tutorial.html"/>
-   <updated>2013-08-08T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2013/08/08/when-to-use-countdownlatch-java-concurrency-example-tutorial</id>
-   <content type="html">&lt;p&gt;根据 Java Docs 中的说明，&lt;a href=&quot;http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/CountDownLatch.html&quot;&gt;CountDownLatch&lt;/a&gt; 一个同步辅助类，在完成一组正在其他线程中执行的操作之前，它允许一个或多个线程一直等待。CountDownLatch 的概念在 Java 并发方面的面试题中非常常见。所以你要确保对它有所了解。在该文章中，我将介绍 CountDownLatch 在 Java 并发方面的以下几点内容：&lt;/p&gt;
+    
+        <link href="http://denger.me/2013/08/08/when-to-use-countdownlatch-java-concurrency-example-tutorial/"/>
+   	<id>http://denger.me/2013/08/08/when-to-use-countdownlatch-java-concurrency-example-tutorial</id>
+   	<content type="html">&lt;p&gt;根据 Java Docs 中的说明，&lt;a href=&quot;http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/CountDownLatch.html&quot;&gt;CountDownLatch&lt;/a&gt; 一个同步辅助类，在完成一组正在其他线程中执行的操作之前，它允许一个或多个线程一直等待。CountDownLatch 的概念在 Java 并发方面的面试题中非常常见。所以你要确保对它有所了解。在该文章中，我将介绍 CountDownLatch 在 Java 并发方面的以下几点内容：&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;什么是 CountDownLatch ?&lt;/li&gt;
@@ -232,14 +231,16 @@
 
 &lt;p&gt;&lt;strong&gt;Original: &lt;a href=&quot;http://howtodoinjava.com/2013/07/18/when-to-use-countdownlatch-java-concurrency-example-tutorial/&quot;&gt;When to use CountDownLatch : Java concurrency example tutorial&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 </content>
+   	<updated>2013-08-08T00:00:00+08:00</updated>
+    
  </entry>
  
  <entry>
    <title>如何生成安全的密码 Hash：MD5, SHA, PBKDF2, BCrypt 示例</title>
-   <link href="http://tom.preston-werner.com/2013/07/25/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples.html"/>
-   <updated>2013-07-25T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2013/07/25/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples</id>
-   <content type="html">&lt;p&gt;密码 Hash 值的产生是将用户所提供的密码通过使用一定的算法计算后得到的加密字符序列。在 Java 中提供很多被证明能有效保证密码安全的 Hash 算法实现，我将在这篇文章中讨论其中的部分算法。&lt;/p&gt;
+    
+        <link href="http://denger.me/2013/07/25/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples/"/>
+   	<id>http://denger.me/2013/07/25/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples</id>
+   	<content type="html">&lt;p&gt;密码 Hash 值的产生是将用户所提供的密码通过使用一定的算法计算后得到的加密字符序列。在 Java 中提供很多被证明能有效保证密码安全的 Hash 算法实现，我将在这篇文章中讨论其中的部分算法。&lt;/p&gt;
 
 &lt;p&gt;需要注意的是，一旦生成密码的 Hash 值并存储在数据库中后，你将不可能再把它转换回密码明文。只能每次用户在登录到应用程序时，须重新生成 Hash 值与数据库中的 Hash 值匹配来完成密码的校验。&lt;/p&gt;
 &lt;div class=&quot;center&quot;&gt;&lt;img src=&quot;/images/2013/07/25/passowrd-hash.jpg&quot; alt=&quot;Password Hash&quot; /&gt;&lt;/div&gt;
@@ -666,14 +667,130 @@
 
 &lt;p&gt;&lt;strong&gt;Original: &lt;a href=&quot;http://howtodoinjava.com/2013/07/22/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples/&quot;&gt;How to generate secure password hash : MD5, SHA, PBKDF2, BCrypt examples&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 </content>
+   	<updated>2013-07-25T00:00:00+08:00</updated>
+    
+ </entry>
+ 
+ <entry>
+   <title>Scribble, a Jekyll theme</title>
+    
+        <link href="http://denger.me/2013/05/07/scribble-the-jekyll-theme/"/>
+   	<id>http://denger.me/2013/05/07/scribble-the-jekyll-theme</id>
+   	<content type="html">&lt;p&gt;I have other themes, checkout (mainly) &lt;a href=&quot;https://github.com/muan/muan.github.com/releases&quot;&gt;this repository&lt;/a&gt; and &lt;a href=&quot;https://github.com/muan/jekyll-wardrobe&quot;&gt;this repository&lt;/a&gt;. &amp;lt;3&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;There is no clever design philosophy to talk about, I tried to find something to work with, and ‘scribble’ came to my mind. This theme uses Open Sans powered by Google Web Fonts, and was written in plain HTML, SCSS &amp;amp; CoffeeScript, though .scss &amp;amp; .coffee files wouldn’t be included in the theme.&lt;/p&gt;
+
+&lt;p&gt;The theme is mobile optimised but I did not check browser compatibility. It looks great in Chrome, Safari and Firefox though.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/muan/scribble&quot; target=&quot;_blank&quot; class=&quot;big-button gray&quot;&gt;Get it on GitHub ♥&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;get-started&quot;&gt;Get started&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/muan/scribble/fork&quot;&gt;Fork the repository&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Clone the repository to your computer.&lt;br /&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;git clone https://github.com/username/scribble&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;bundle install&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;If using older versions of Jekyll&lt;/strong&gt;&lt;br /&gt;
+  Build and run jekyll using &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll --server --auto&lt;/code&gt;.&lt;br /&gt;
+  &lt;strong&gt;If using &lt;a href=&quot;http://blog.parkermoore.de/2013/05/06/jekyll-1-dot-0-released/&quot;&gt;Jekyll 1.0&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+  Build Jekyll using &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll build&lt;/code&gt;.&lt;br /&gt;
+  Then run Jekyll using &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve --watch&lt;/code&gt;&lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;Go to http://localhost:4000 for your site.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;make-it-yours&quot;&gt;Make it yours&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;I have extract most user specific information to &lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt;, you should be able to set up almost everything from it.&lt;/li&gt;
+  &lt;li&gt;Change about.md for blog intro.&lt;/li&gt;
+  &lt;li&gt;For domain settings, see &lt;a href=&quot;https://help.github.com/articles/setting-up-a-custom-domain-with-pages&quot;&gt;the guide from GitHub&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;options&quot;&gt;Options&lt;/h3&gt;
+
+&lt;p&gt;When writing a post, there are 3 options you can add to the header.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;disqus: y&lt;/strong&gt;&lt;br /&gt;
+  If disqus is set to ‘y’, at the end of the post there will be a disqus thread, just like this one. To use disqus, you MUST &lt;a href=&quot;http://disqus.com/&quot;&gt;set up your own disqus account&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;share: y&lt;/strong&gt;&lt;br /&gt;
+  An option for showing tweet and like button under a post.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;date&lt;/strong&gt;: 2013-05-06 18:07:17&lt;br /&gt;
+  Date is not a required header since Jekyll reads the file name for date, this was added in only for the &lt;strong&gt;signoff time&lt;/strong&gt;. (as shown at the end of this post) If you don’t want the signoff time, go into &lt;code class=&quot;highlighter-rouge&quot;&gt;/includes/signoff.html&lt;/code&gt; and remove the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;span&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/muan/scribble&quot; target=&quot;_blank&quot; class=&quot;big-button gray&quot;&gt;Get it on GitHub ♥&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;the-end&quot;&gt;The end&lt;/h3&gt;
+
+&lt;p&gt;Like it? &lt;a href=&quot;http://twitter.com/muanchiou&quot;&gt;Tell me&lt;/a&gt;.&lt;br /&gt;
+Problem? &lt;a href=&quot;https://github.com/muan/scribble&quot;&gt;Use GitHub Issues&lt;/a&gt;.&lt;/p&gt;
+</content>
+   	<updated>2013-05-07T00:27:31+08:00</updated>
+    
+ </entry>
+ 
+ <entry>
+   <title>Placeholder post</title>
+    
+        <link href="http://denger.me/2013/05/06/more-post/"/>
+   	<id>http://denger.me/2013/05/06/more-post</id>
+   	<content type="html">&lt;p&gt;I am a placeholder post. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Boom. I am a blockquote.&lt;/p&gt;
+
+  &lt;p&gt;Say something really clever here.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;List with code&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+  not highlighted
+  multi line
+ &lt;/code&gt;
+2. List with code&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dom&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;boom&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.&lt;/p&gt;
+
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;whaaa&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;I have a friend called Bobobmob.&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+</content>
+   	<updated>2013-05-06T23:27:31+08:00</updated>
+    
  </entry>
  
  <entry>
    <title>新浪 Weibo 手机WAP注册验证码破解</title>
-   <link href="http://tom.preston-werner.com/2013/03/25/hack-sina-weibo-verify-code.html"/>
-   <updated>2013-03-25T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2013/03/25/hack-sina-weibo-verify-code</id>
-   <content type="html">&lt;p&gt;最近研究了一下&lt;a href=&quot;http://weibo.com&quot;&gt;新浪微博&lt;/a&gt;的用户注册，WEB版的注册需要身份证进行实名认证，要想实现注册机的话较为麻烦。于是便另寻捷径，发现其提供了&lt;a href=&quot;http://3g.sina.com.cn/prog/wapsite/sso/register.php?backURL=http%3A%2F%2Fweibo.cn%2Fguide%2F&amp;amp;backTitle=%D0%C2%C0%CB%CE%A2%B2%A9&amp;amp;vt=4&amp;amp;revalid=2&amp;amp;ns=1&amp;amp;type=m&quot;&gt;手机注册&lt;/a&gt;，只需要邮箱及手机号发送短信激活即可，看上去还算靠普。当然，对于注册所需要填写的验证码肯定是必不可少的，本文将主要记录对该码的破解过程，如下图所示：&lt;/p&gt;
+    
+        <link href="http://denger.me/2013/03/25/hack-sina-weibo-verify-code/"/>
+   	<id>http://denger.me/2013/03/25/hack-sina-weibo-verify-code</id>
+   	<content type="html">&lt;p&gt;最近研究了一下&lt;a href=&quot;http://weibo.com&quot;&gt;新浪微博&lt;/a&gt;的用户注册，WEB版的注册需要身份证进行实名认证，要想实现注册机的话较为麻烦。于是便另寻捷径，发现其提供了&lt;a href=&quot;http://3g.sina.com.cn/prog/wapsite/sso/register.php?backURL=http%3A%2F%2Fweibo.cn%2Fguide%2F&amp;amp;backTitle=%D0%C2%C0%CB%CE%A2%B2%A9&amp;amp;vt=4&amp;amp;revalid=2&amp;amp;ns=1&amp;amp;type=m&quot;&gt;手机注册&lt;/a&gt;，只需要邮箱及手机号发送短信激活即可，看上去还算靠普。当然，对于注册所需要填写的验证码肯定是必不可少的，本文将主要记录对该码的破解过程，如下图所示：&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/weibo-reg.png&quot; alt=&quot;alt &amp;quot;WEIBO REGISTER&amp;quot;&quot; /&gt;&lt;/p&gt;
 
@@ -911,14 +1028,16 @@
 
 &lt;p&gt;最后再说说效率吧，以上使用了将近15/s的时间，其主要花费在于网络(因多次下载验证码图片)，其二是由于每个字母与字模库的比较过程会较为消耗时间，且随着字模库越大则越慢，优化做法可将字模库每个图片的 String 值缓存在内存中，直接从内存中读取并比较会提高一定的效率。&lt;/p&gt;
 </content>
+   	<updated>2013-03-25T00:00:00+08:00</updated>
+    
  </entry>
  
  <entry>
    <title>Mac OSX 10.8.1 安装 Python2.7(Django)</title>
-   <link href="http://tom.preston-werner.com/2012/08/26/install-python2.7-on-lion.html"/>
-   <updated>2012-08-26T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2012/08/26/install-python2.7-on-lion</id>
-   <content type="html">&lt;p&gt;Mac OSX 10.8.1 默认的 Python 版本是 2.6.8，虽然 3.2 出来已经有较长时间了，但现主流的版本仍然是 2.X 系例版本，我这里升级为 2.7.3 版本，其对应的 Django 版本为 1.4.1。&lt;/p&gt;
+    
+        <link href="http://denger.me/2012/08/26/install-python2.7-on-lion/"/>
+   	<id>http://denger.me/2012/08/26/install-python2.7-on-lion</id>
+   	<content type="html">&lt;p&gt;Mac OSX 10.8.1 默认的 Python 版本是 2.6.8，虽然 3.2 出来已经有较长时间了，但现主流的版本仍然是 2.X 系例版本，我这里升级为 2.7.3 版本，其对应的 Django 版本为 1.4.1。&lt;/p&gt;
 
 &lt;h5 id=&quot;section&quot;&gt;环境准备&lt;/h5&gt;
 
@@ -995,14 +1114,16 @@ ImportError: No module named django.core.management&lt;/code&gt;&lt;/pre&gt;&lt;
 
 &lt;p&gt;在虚拟环境下安装 django 之后，进入 project 目录下便可正常启动 django 服务 &lt;code class=&quot;highlighter-rouge&quot;&gt;python manage.py runserver&lt;/code&gt;。当然，如果想回到系统默认环境的话只需要运行 &lt;code class=&quot;highlighter-rouge&quot;&gt;deactivate&lt;/code&gt; 即可。&lt;/p&gt;
 </content>
+   	<updated>2012-08-26T00:00:00+08:00</updated>
+    
  </entry>
  
  <entry>
    <title>正式启用 denger.me 作为个人博客</title>
-   <link href="http://tom.preston-werner.com/2012/05/02/starting-new-blog.html"/>
-   <updated>2012-05-02T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2012/05/02/starting-new-blog</id>
-   <content type="html">&lt;p&gt;经过一翻折腾，算是把 &lt;a href=&quot;http://github.com/mojombo/jekyll&quot;&gt;jekyll&lt;/a&gt; 给部署上了，非常喜欢这个模块，这得多谢 &lt;a href=&quot;http://zachholman.com&quot;&gt;zach holman&lt;/a&gt; 才让我有这个简洁的风格。&lt;/p&gt;
+    
+        <link href="http://denger.me/2012/05/02/starting-new-blog/"/>
+   	<id>http://denger.me/2012/05/02/starting-new-blog</id>
+   	<content type="html">&lt;p&gt;经过一翻折腾，算是把 &lt;a href=&quot;http://github.com/mojombo/jekyll&quot;&gt;jekyll&lt;/a&gt; 给部署上了，非常喜欢这个模块，这得多谢 &lt;a href=&quot;http://zachholman.com&quot;&gt;zach holman&lt;/a&gt; 才让我有这个简洁的风格。&lt;/p&gt;
 
 &lt;p&gt;说到自己的博客，早在09就一直在 &lt;a href=&quot;http://denger.iteye.com&quot;&gt;ITeye&lt;/a&gt; 上维护着自己的一个博客，虽然自己写的不多，但是作为一个专业的技术社区，在上面讨论及分享技术着实是一个不错的地方，因为在上面确实具有相对浓厚的技术氛围，这也是我虽然这里搭建了自己的博客，但是以后仍然不会放弃在 ITEYE 博客的原因。&lt;/p&gt;
 
@@ -1010,23 +1131,23 @@ ImportError: No module named django.core.management&lt;/code&gt;&lt;/pre&gt;&lt;
 
 &lt;p&gt;&lt;strong&gt;我决定: 写博客将作为我以后业余生活所要做的重要事情之一。&lt;/strong&gt;&lt;/p&gt;
 </content>
+   	<updated>2012-05-02T00:00:00+08:00</updated>
+    
  </entry>
  
  <entry>
    <title>JVM 知识点题目解答(1)</title>
-   <link href="http://tom.preston-werner.com/2011/12/29/JVM-questions-1.html"/>
-   <updated>2011-12-29T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2011/12/29/JVM-questions-1</id>
-   <content type="html">
-</content>
+    
+        <link href="http://denger.iteye.com/blog/1329081"/>
+    
  </entry>
  
  <entry>
    <title>记录碰到的一些 Java 问题(更新2014-02-26)</title>
-   <link href="http://tom.preston-werner.com/2011/11/15/note-java-problems.html"/>
-   <updated>2011-11-15T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2011/11/15/note-java-problems</id>
-   <content type="html">&lt;p&gt;这篇文章用于记录自己碰到过的一些 Java 问题，会根据经验不断增加，以便总结。:-)&lt;/p&gt;
+    
+        <link href="http://denger.me/2011/11/15/note-java-problems/"/>
+   	<id>http://denger.me/2011/11/15/note-java-problems</id>
+   	<content type="html">&lt;p&gt;这篇文章用于记录自己碰到过的一些 Java 问题，会根据经验不断增加，以便总结。:-)&lt;/p&gt;
 
 &lt;h4 id=&quot;case&quot;&gt;CASE&lt;/h4&gt;
 
@@ -1113,50 +1234,44 @@ tail -f /export/logs/xxx/catalina.out &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;如果你的 hadoop_home 没有 commons-configuration-1.6.jar的话可以点&lt;a href=&quot;http://repo1.maven.org/maven2/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar&quot;&gt;这里&lt;/a&gt;下载。 
 重新启动 HBase 即可解决以上异常。&lt;/p&gt;
 </content>
+   	<updated>2011-11-15T00:00:00+08:00</updated>
+    
  </entry>
  
  <entry>
    <title>Douyu0.6.1 源码分析 之 MVC篇</title>
-   <link href="http://tom.preston-werner.com/sourcecode/2011/08/02/douyu0.61-mvc-learning.html"/>
-   <updated>2011-08-02T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/sourcecode/2011/08/02/douyu0.61-mvc-learning</id>
-   <content type="html">
-</content>
+    
+        <link href="http://denger.iteye.com/topic/1113009"/>
+    
  </entry>
  
  <entry>
    <title>MyBatis 缓存机制深度解剖</title>
-   <link href="http://tom.preston-werner.com/sourcecode/2011/07/17/mybatis-cache-analysis.html"/>
-   <updated>2011-07-17T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/sourcecode/2011/07/17/mybatis-cache-analysis</id>
-   <content type="html">
-</content>
+    
+        <link href="http://denger.iteye.com/blog/1126423"/>
+    
  </entry>
  
  <entry>
    <title>CAS 跨域 AJAX 登录实践</title>
-   <link href="http://tom.preston-werner.com/2011/07/08/CAS-of-cross-domain-ajax-login-practice.html"/>
-   <updated>2011-07-08T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2011/07/08/CAS-of-cross-domain-ajax-login-practice</id>
-   <content type="html">
-</content>
+    
+        <link href="http://denger.iteye.com/blog/1119233"/>
+    
  </entry>
  
  <entry>
    <title>Python 实用技巧-成为Pythoner必经之路</title>
-   <link href="http://tom.preston-werner.com/2011/06/16/python-skills.html"/>
-   <updated>2011-06-16T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2011/06/16/python-skills</id>
-   <content type="html">
-</content>
+    
+        <link href="http://denger.iteye.com/blog/1092772"/>
+    
  </entry>
  
  <entry>
    <title>MyBatis+Spring 基于接口编程的原理分析</title>
-   <link href="http://tom.preston-werner.com/sourcecode/2011/05/27/mybatis-and-spring-interface-integrated.html"/>
-   <updated>2011-05-27T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/sourcecode/2011/05/27/mybatis-and-spring-interface-integrated</id>
-   <content type="html">&lt;h5 id=&quot;spring3mybatis3&quot;&gt;整合Spring3及MyBatis3&lt;/h5&gt;
+    
+        <link href="http://denger.me/sourcecode/2011/05/27/mybatis-and-spring-interface-integrated/"/>
+   	<id>http://denger.me/sourcecode/2011/05/27/mybatis-and-spring-interface-integrated</id>
+   	<content type="html">&lt;h5 id=&quot;spring3mybatis3&quot;&gt;整合Spring3及MyBatis3&lt;/h5&gt;
 
 &lt;p&gt;对于整合Spring及Mybatis不作详细介绍，可以参考： &lt;a href=&quot;http://www.google.com.hk/url?sa=t&amp;amp;rct=j&amp;amp;q=MyBatis+3+User+Guide+Simplified+Chinese.pdf&amp;amp;source=web&amp;amp;cd=2&amp;amp;ved=0CDkQFjAB&amp;amp;url=http%3A%2F%2Fmybatis.googlecode.com%2Ffiles%2FMyBatis-3-User-Guide-Simplified-Chinese.pdf&amp;amp;ei=_mlZUdmSPMWpiAf4uYHIDw&amp;amp;usg=AFQjCNHAL9KPhzfilVnZloJ-yZZ2tXWeYQ&amp;amp;bvm=bv.44442042,d.dGI&quot;&gt;MyBatis 3 User Guide Simplified Chinese.pdf&lt;/a&gt;，贴出我的主要代码如下：&lt;/p&gt;
 
@@ -1378,41 +1493,37 @@ tail -f /export/logs/xxx/catalina.out &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;–&lt;/p&gt;
 </content>
+   	<updated>2011-05-27T00:00:00+08:00</updated>
+    
  </entry>
  
  <entry>
    <title>新浪微博如何实现 SSO 分析</title>
-   <link href="http://tom.preston-werner.com/2011/05/10/sina-weibo-for-sso-principle.html"/>
-   <updated>2011-05-10T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2011/05/10/sina-weibo-for-sso-principle</id>
-   <content type="html">
-</content>
+    
+        <link href="http://www.iteye.com/topic/1039052"/>
+    
  </entry>
  
  <entry>
    <title>Nginx XSendfile+SpringMVC 文件下载</title>
-   <link href="http://tom.preston-werner.com/2011/04/24/nginx-xsendfile-and-springmvc-file-download.html"/>
-   <updated>2011-04-24T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2011/04/24/nginx-xsendfile-and-springmvc-file-download</id>
-   <content type="html">
-</content>
+    
+        <link href="http://denger.iteye.com/blog/1014066"/>
+    
  </entry>
  
  <entry>
    <title>在 CentOS 上设置共享 git 仓库</title>
-   <link href="http://tom.preston-werner.com/2011/04/21/install-git-repository-for-centos.html"/>
-   <updated>2011-04-21T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2011/04/21/install-git-repository-for-centos</id>
-   <content type="html">
-</content>
+    
+        <link href="http://denger.iteye.com/blog/1010692"/>
+    
  </entry>
  
  <entry>
    <title>淘宝如何跨域获取 Cookie 分析</title>
-   <link href="http://tom.preston-werner.com/2011/04/13/taobao-how-cross-domain-access-to-cookies.html"/>
-   <updated>2011-04-13T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2011/04/13/taobao-how-cross-domain-access-to-cookies</id>
-   <content type="html">&lt;p&gt;最近在发现使用Taobao的时候的一个小细节，于是便萌发起了写这篇文章。 
+    
+        <link href="http://denger.me/2011/04/13/taobao-how-cross-domain-access-to-cookies/"/>
+   	<id>http://denger.me/2011/04/13/taobao-how-cross-domain-access-to-cookies</id>
+   	<content type="html">&lt;p&gt;最近在发现使用Taobao的时候的一个小细节，于是便萌发起了写这篇文章。 
 当我们在 www.taobao.com 中进行登录之后，然后直接切换到 www.tmall.com 域名下，发现www.tmall.com首页的最顶部马上显示成了”您好, andyfaces“，于是便对此处的实现机制进行分析。 
 首先，用户名应该是存储在cookie中的，于是在taobao.com的域名中用 firefox看到用户名确实是存储在 cookie, 而tmall.com中没有存储该cookie:&lt;/p&gt;
 
@@ -1464,50 +1575,44 @@ tail -f /export/logs/xxx/catalina.out &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;其实大致原理如此，通过在www.taobao.com 的server端提供一个获取当前域下所有cookie的 php的请求地址，然后该php获取到cookie之后将期并成 js 代码，也就是以上第二个截图所看到的。然后再在 tmall 采用 jsonp 的方式跨域加载该 js 代码，从而实现 cookie 的跨域访问。&lt;/p&gt;
 
 </content>
+   	<updated>2011-04-13T00:00:00+08:00</updated>
+    
  </entry>
  
  <entry>
    <title>MySQL 多对多列合并(group_concat)</title>
-   <link href="http://tom.preston-werner.com/2011/04/11/mysql-query-for-merge-columns.html"/>
-   <updated>2011-04-11T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2011/04/11/mysql-query-for-merge-columns</id>
-   <content type="html">
-</content>
+    
+        <link href="http://denger.iteye.com/blog/998272"/>
+    
  </entry>
  
  <entry>
    <title>CAS 集成 RESTful API</title>
-   <link href="http://tom.preston-werner.com/2011/03/23/CAS-to-integrate-RESTful-API.html"/>
-   <updated>2011-03-23T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2011/03/23/CAS-to-integrate-RESTful-API</id>
-   <content type="html">
-</content>
+    
+        <link href="http://denger.iteye.com/blog/973068"/>
+    
  </entry>
  
  <entry>
    <title>Eclipse 调试 Tomcat6 源码配置</title>
-   <link href="http://tom.preston-werner.com/2010/12/06/eclipse-debug-tomcat6-source-config.html"/>
-   <updated>2010-12-06T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2010/12/06/eclipse-debug-tomcat6-source-config</id>
-   <content type="html">
-</content>
+    
+        <link href="http://denger.iteye.com/blog/834121"/>
+    
  </entry>
  
  <entry>
    <title>CAS 实现用户注册后自动登录</title>
-   <link href="http://tom.preston-werner.com/2010/11/08/cas-registed-auto-login.html"/>
-   <updated>2010-11-08T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2010/11/08/cas-registed-auto-login</id>
-   <content type="html">
-</content>
+    
+        <link href="http://denger.iteye.com/blog/805743"/>
+    
  </entry>
  
  <entry>
    <title>使用 C 实现 Java LinkedList</title>
-   <link href="http://tom.preston-werner.com/2010/11/08/c-implement-java-linkedlist.html"/>
-   <updated>2010-11-08T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2010/11/08/c-implement-java-linkedlist</id>
-   <content type="html">&lt;p&gt;以下基于 ADT 链表数据结构实现的C语言版 LinkedList。&lt;/p&gt;
+    
+        <link href="http://denger.me/2010/11/08/c-implement-java-linkedlist/"/>
+   	<id>http://denger.me/2010/11/08/c-implement-java-linkedlist</id>
+   	<content type="html">&lt;p&gt;以下基于 ADT 链表数据结构实现的C语言版 LinkedList。&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;cm&quot;&gt;/** 
  *  link_list.h 
@@ -1712,16 +1817,9 @@ tail -f /export/logs/xxx/catalina.out &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;  &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 </content>
+   	<updated>2010-11-08T00:00:00+08:00</updated>
+    
  </entry>
  
- <entry>
-   <title>Oracle 常用 SQL 技巧收藏</title>
-   <link href="http://tom.preston-werner.com/2010/11/05/oracle-sql-favorite.html"/>
-   <updated>2010-11-05T00:00:00+08:00</updated>
-   <id>http://tom.preston-werner.com/2010/11/05/oracle-sql-favorite</id>
-   <content type="html">
-</content>
- </entry>
  
-
 </feed>

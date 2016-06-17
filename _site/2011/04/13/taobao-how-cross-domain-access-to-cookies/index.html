@@ -1,0 +1,183 @@
+<html>
+  <head>
+    <meta content='淘宝如何跨域获取 Cookie 分析 - Denger Notes：生活、技术、思考' property='og:title' />
+    <title>淘宝如何跨域获取 Cookie 分析 - Denger Notes：生活、技术、思考</title>
+    <link href='/images/fav.png' rel='shortcut icon'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+<link href='/stylesheets/style.css' rel='stylesheet' type='text/css' />
+<link href='/stylesheets/syntax.css' rel='stylesheet' type='text/css' />
+<link href='/stylesheets/responsive.css' rel='stylesheet' type='text/css' />
+<!-- - -->
+<script src='/javascripts/jquery.js' type='text/javascript'></script>
+<script src='/javascripts/pd.js' type='text/javascript'></script>
+<script src='/javascripts/basics.js' type='text/javascript'></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<!-- - -->
+<meta content='width=device-width, initial-scale=1.0, user-scalable=no' name='viewport'>
+<meta content='text/html; charset=utf-8' http-equiv='content-type' />
+<meta content="/og.png" property="og:image" />
+<meta content="" property="fb:app_id" />
+
+  <meta content='/2011/04/13/taobao-how-cross-domain-access-to-cookies/' property='og:url' />
+  <meta content="最近在发现使用Taobao的时候的一个小细节，于是便萌发起了写这篇文章。 当我们在 www.taobao.com 中进行登录之后，然后直接切换到 www.tmall.com 域名下，发现www.tmall.com首页的最顶部马上显示成..." property='og:description' />
+  <meta content="article" property="og:type" />
+
+<!-- - -->
+<script type='text/javascript'>
+  //<![CDATA[
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '']);
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  //]]>
+</script>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+  </head>
+  <body>
+    <header>
+<a id="go-back-home" href="/"><img src="/images/scribble.png" alt="scribble" width="53" height="59"/></a>
+<p>Denger Notes：生活、技术、思考</p>
+</header>
+
+    <div id='container'>
+      <div class="block">
+  
+    <a target="_blank"
+       class="main" 
+       href="/about">
+       About
+     </a>
+  
+    <a target="_blank"
+       class="main" 
+       href="http://github.com/denger">
+       GitHub
+     </a>
+  
+</div>
+      <section class="paging">
+  
+    <div class="left">
+      <a href="/2011/04/11/mysql-query-for-merge-columns/">
+        ‹
+      </a>
+    </div>
+  
+  
+    <div class="right">
+      <a href="/2011/04/21/install-git-repository-for-centos/">
+        ›
+      </a>
+    </div>
+  
+</section>
+      <div class="content">
+        <section class='post'>
+          <h1 class="upcase">
+            <div class='date'>13 Apr 2011</div>
+            淘宝如何跨域获取 Cookie 分析
+          </h1>
+          <p>最近在发现使用Taobao的时候的一个小细节，于是便萌发起了写这篇文章。 
+当我们在 www.taobao.com 中进行登录之后，然后直接切换到 www.tmall.com 域名下，发现www.tmall.com首页的最顶部马上显示成了”您好, andyfaces“，于是便对此处的实现机制进行分析。 
+首先，用户名应该是存储在cookie中的，于是在taobao.com的域名中用 firefox看到用户名确实是存储在 cookie, 而tmall.com中没有存储该cookie:</p>
+
+<p><img src="/images/2011/03/13/1.png" alt="alt &quot;IMG&quot;" /></p>
+
+<p>可以确定的是对于cookie来说肯定是不允许垮域访问的。无论是通过JS还是Server端程序来说都是如此，那么tmall.com是如何访问到taobao.com下的cookie的呢? 于是打开 tmall.com，然后使用firebug来进行调试，发现了一条这样的请求语句：</p>
+
+<p><img src="/images/2011/03/13/2.png" alt="alt &quot;IMG&quot;" /></p>
+
+<p>其页面的JS代码为：</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">KISSY</span><span class="p">.</span><span class="nx">getScript</span><span class="p">(</span><span class="s2">"http://www.taobao.com/go/app/tmall/login-api.php?"</span><span class="o">+</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">());</span></code></pre></figure>
+
+<p>看到这里之后于是也大概知道他如何处理了的，为了确认一下，于是搜索一下 <a href="http://docs.kissyui.com/kissy/build/kissy.js">KISSY.getScript</a> 函数代码，确实采用了JS跨域的 <a href="http://remysharp.com/2007/10/08/what-is-jsonp/">JSONP</a> 解决方案：</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">getScript</span><span class="err">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">success</span><span class="p">,</span> <span class="nx">charset</span><span class="p">)</span> <span class="p">{</span>  
+      <span class="kd">var</span> <span class="nx">isCSS</span> <span class="o">=</span> <span class="nx">RE_CSS</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">url</span><span class="p">),</span>  
+          <span class="nx">node</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">isCSS</span> <span class="p">?</span> <span class="s1">'link'</span> <span class="p">:</span> <span class="s1">'script'</span><span class="p">),</span>  
+          <span class="nx">config</span> <span class="o">=</span> <span class="nx">success</span><span class="p">,</span> <span class="nx">error</span><span class="p">,</span> <span class="nx">timeout</span><span class="p">,</span> <span class="nx">timer</span><span class="p">;</span>  
+
+          <span class="nx">node</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>  
+          <span class="nx">node</span><span class="p">.</span><span class="nx">async</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>  
+
+      <span class="nx">scriptOnload</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>  
+              <span class="k">if</span> <span class="p">(</span><span class="nx">timer</span><span class="p">)</span> <span class="p">{</span>  
+                  <span class="nx">timer</span><span class="p">.</span><span class="nx">cancel</span><span class="p">();</span>  
+                  <span class="nx">timer</span> <span class="o">=</span> <span class="nx">undef</span><span class="p">;</span>  
+              <span class="p">}</span>  
+
+              <span class="nx">S</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="nx">success</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">success</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>  
+
+              <span class="c1">// remove script  </span>
+              <span class="k">if</span> <span class="p">(</span><span class="nx">head</span> <span class="o">&amp;&amp;</span> <span class="nx">node</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">)</span> <span class="p">{</span>  
+                  <span class="nx">head</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>  
+              <span class="p">}</span>  
+          <span class="p">});</span>  
+      <span class="nx">head</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">head</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">);</span>  
+<span class="p">}</span>  </code></pre></figure>
+
+<p>其原理是通过动态create js include 动态加载js，然后为该script节点bind onload事件或判断onreadystatechange，其具体细节可以参考以上 scriptOnload 的函数的处理。 当js加载完成之后 采用回调方式来执行 success 函数。 
+为了进一步确实，于是使用 Jquery的 $.getScript 来测试一把，首先在 taobao.com下进行登录成功，然后随便在本地写了一个测试页，通过以下语句:</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">.</span><span class="nx">getScript</span><span class="p">(</span><span class="s1">'http://www.taobao.com/go/app/tmall/login-api.php?0.6783450077710154'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>  
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"the taobao.com cookie object:"</span> <span class="o">+</span> <span class="nx">userCookie</span> <span class="o">+</span> <span class="s2">" username:"</span> <span class="o">+</span> <span class="nx">userCookie</span><span class="p">.</span><span class="nx">_nk_</span><span class="p">);</span>  
+<span class="p">});</span>  </code></pre></figure>
+
+<p><img src="/images/2011/03/13/3.png" alt="alt &quot;IMG&quot;" /></p>
+
+<p>其实大致原理如此，通过在www.taobao.com 的server端提供一个获取当前域下所有cookie的 php的请求地址，然后该php获取到cookie之后将期并成 js 代码，也就是以上第二个截图所看到的。然后再在 tmall 采用 jsonp 的方式跨域加载该 js 代码，从而实现 cookie 的跨域访问。</p>
+
+
+          <br />
+<p>
+  Til next time,<br/>
+  Denger
+  <span class="muted">at 00:00</span>
+</p>
+<p>
+  <img src="/images/scribble3.png" alt="scribble" /> 
+</p>
+
+
+        </section>
+      </div>
+      
+
+      
+      <div class="block">
+  
+    <a target="_blank"
+       class="main" 
+       href="/about">
+       About
+     </a>
+  
+    <a target="_blank"
+       class="main" 
+       href="http://github.com/denger">
+       GitHub
+     </a>
+  
+</div>
+    </div>
+    <footer>
+  <a href="http://github.com/muan/scribble" class="muted">built with Jekyll using Scribble theme</a>
+  <br />
+  <br />
+  <img src="/images/scribble2.png" alt="scribble" /> 
+</footer>
+  </body>
+</html>
