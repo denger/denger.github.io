@@ -8,7 +8,6 @@ html, body { height: 100%; }
 body { 
   &, * { -webkit-font-smoothing: antialiased; }
   background: $background;
-  color: #303030;
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
   font-size: 13px;
@@ -159,8 +158,8 @@ hr {
 }
 
 ul.posts {
-  &, li { margin: 0; padding: 0; list-style: none; }
-  li { margin-bottom: 20px; }
+  &, li { margin: 0; padding: 0;  font-size:100%;list-style: none; }
+  li { margin-bottom: 20px;}
   .datetime {
     @include inline-block;
     width: 130px;

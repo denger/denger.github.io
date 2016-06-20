@@ -5,7 +5,6 @@ html, body {
   height: 100%; }
 
 body {
-  color: #222527;
   font: 13.34px Helvetica,Arial,"PingFang SC","Hiragino Sans GB","Source Han Sans CN",Roboto,"Heiti SC","Microsoft Yahei",sans-serif;`
   font-weight: 400;
   line-height: 1.5em;;
@@ -77,15 +76,19 @@ blockquote {
 header {
   text-align: center; }
 
+   .footer {
+
+}
 footer {
-  width: 100%;
-  max-width: 600px;
-  line-height: 2em;
-  margin: auto;
-  padding-bottom: 30px;
-  text-align: center; }
-  footer * {
-    color: #797979; }
+    font-size: 80%;
+    color: #666;
+   overflow: hidden;
+    }
+footer .content > div {
+    border-top: 4px solid #eee;
+    margin-top: 2.8em;
+    
+}
 
 .title {
     -webkit-box-sizing: border-box;
@@ -112,7 +115,7 @@ footer {
 }
 .post-title {
     font-size: 120%;
-    margin-bottom: 15px;
+    margin: 24px 0px 6px 0px;
 }
 
 #container {
@@ -170,7 +173,7 @@ footer {
   margin: auto; }
 
 a, .as-link {
-  color: #269;
+  color: #00a;
   line-height: 1.4em;
   display: inline-block;
   vertical-align: baseline;
@@ -183,7 +186,7 @@ a, .as-link {
   -o-transition: color 0.3s;
   transition: color 0.3s; }
   a.main, a:hover, .as-link.main, .as-link:hover {
-    color: #1d5884;
+          color: #698396;
     }
   a.big-button, .as-link.big-button {
     min-width: 30%;
@@ -244,7 +247,9 @@ ul.posts, ul.posts li {
   padding: 0;
   list-style: none; }
 ul.posts li {
-  line-height: 1.75em; }
+  line-height: 1.75em; 
+  font-size:105%;
+  }
 ul.posts .datetime {
   display: inline-block;
   vertical-align: baseline;
@@ -343,8 +348,8 @@ pre {
 
 code {
   font-size: 13px;
-  color: #eee;
-  background: #39382e;
+  color: #333;
+  background: #f7f7f7;
   padding: 2px 4px 3px;
   border-radius: 2px;
   line-height: 1.3em;
@@ -353,6 +358,10 @@ code {
   zoom: 1;
   *display: inline;
   *vertical-align: auto; }
+
+pre code {
+  width:100%;
+}
 
 img {
   max-width: 100%; }
