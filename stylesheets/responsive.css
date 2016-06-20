@@ -6,6 +6,9 @@
       display: block;
       width: auto;
       text-align: left; }
+    body .title {
+            padding-left: 15px;
+    }
     body #container #ind-instagram, body #container #ind-linkedin {
       display: none; }
     body #container .links, body #container .content {
