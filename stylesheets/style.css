@@ -395,6 +395,18 @@ img {
    font-weight: 600;
 }
 
+.post ol > li,
 .post ul > li {
     margin-left: 17px;
+}
+
+.old-post a {
+    margin-top: 12px;
+    font-weight: bold;
+    color: #2c2c9c91;
+    font-size: 100%;
+}
+
+.old-post a:hover {
+    color: #00a;
 }
