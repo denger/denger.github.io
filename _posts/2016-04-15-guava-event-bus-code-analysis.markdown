@@ -41,6 +41,7 @@ mouse move event trigger
 {% endhighlight java %}
 
 更加详细的使用说明可以查看 [EventBusExplained](https://github.com/google/guava/wiki/EventBusExplained)。
+
 #### 实现细节
 
 从代码示例来看，用到 EventBus 的主要行为为 `register` 和 `post` ，分别是注册订阅者和事件发送：
