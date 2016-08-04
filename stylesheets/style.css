@@ -406,7 +406,7 @@ img {
 .old-post a {
     margin-top: 12px;
     font-weight: bold;
-    color: #2c2c9c91;
+    color: #7d7b7b !important;
     font-size: 100%;
 }
 
