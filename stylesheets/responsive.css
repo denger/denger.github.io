@@ -27,4 +27,7 @@
               display: block;
               padding-bottom: 10px;
           }
+          .mdatetime {
+                font-size: 67%;
+          }
       }
