@@ -145,9 +145,11 @@ void dispatch(Object event, Iterator<Subscriber> subscribers) {
 {% endhighlight java %}
 
 **LegacyAsyncDispatcher**
+
 在使用 `AsyncEventBus` ，则默认使用该分发器。与 `PerThreadQueuedDispatcher` 区别在于通过维护全局事件分发队列，使事件发布及订阅者能在多线程下并行执行。但无法完全保证在多线程下按事件发布顺序进行分发。
 
 **ImmediateDispatcher**
+
 遍历 `subscribers` 直接进行事件分发。
 
 最后，由对应 `Subscriber` 接收到相应事件，并完成对订阅方法的调用：
