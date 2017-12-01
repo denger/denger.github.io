@@ -272,7 +272,7 @@ section.post {
   border-top: 0;
   padding: 0; }
   section.post > * {
-    padding: 0 60px; }
+    padding: 0 0px; }
   section.post ul ul, section.post ul ol, section.post ol ul, section.post ol ol {
     margin-left: 20px;
     padding: 0; }
@@ -309,7 +309,7 @@ section.post, section > p {
     position: relative;
     overflow: hidden;
     display: block;
-    padding: 15px 60px; }
+    padding: 15px 10px; }
     section.post blockquote:hover, section > p blockquote:hover {
       color: #454545; }
     section.post blockquote:hover:before, section > p blockquote:hover:before {
